@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>轮播图</title>
+	<style>
+	.wrap {
+		width: 600px;
+		height: 400px;
+		margin: 50px auto;
+		position: relative;
+		overflow: hidden;
+		border: 4px solid #666;
+	}
+	.list {
+		position: absolute;
+		width: 5400px;
+	}
+	img {
+		float: left;
+		width: 600px;
+		height: 400px;
+	}
+	a {
+		text-decoration: none;
+		position: absolute;
+		top: 50%;
+		display: inline-block;
+		width: 85px;
+		text-align: center;
+		line-height: 70px;
+		margin-top: -35px;
+		background-color: #333;
+		color: #fff;
+		opacity: .3;
+		font-size: 50px;
+		font-weight: bold;
+		display: none;
+	}
+	.pre {
+		left: 0;
+	}
+	.next {
+		right: 0;
+	}
+	.buttons {
+		position: absolute;
+		bottom: 30px;
+		width: 100%;
+		text-align: center;
+	}
+	span {
+		display: inline-block;
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+		border: 1px solid #fff;
+		cursor: pointer;
+	}
+	span~span {
+		margin-left: 20px;
+	}
+	.light {
+		background-color: red;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+		<div class="list" id="list" style="left: -600px">
+			<img src="img/5.jpg">
+			<img src="img/1.jpg">
+			<img src="img/2.jpg">
+			<img src="img/3.jpg">
+			<img src="img/4.jpg">
+			<img src="img/5.jpg">
+			<img src="img/1.jpg">
+		</div>
+		<a href="javascript:;" id="prev" class="pre"><</a>
+		<a href="javascript:;" id="next" class="next">></a> 
+		<div class="buttons" id="buttons">
+			<span index="1" class="light"></span>
+			<span index="2"></span>
+			<span index="3"></span>
+			<span index="4"></span>
+			<span index="5"></span>
+		</div>
+	</div>
+	<script>
+	  window.onload = function(){
+	  	var index = 1;
+	  	var switching = false;
+
+	  	var prev = document.getElementById('prev');
+	  	var next = document.getElementById('next');
+	  	var list = document.getElementById('list');
+	  	var wrap = document.getElementById('wrap');
+	  	var buttons = document.getElementById('butttons');
+	  	var dots = document.getElementsByTagName('span');
+
+	  	
+	  	//根据index点亮对应的小圆点
+	  	function lightDot(){
+	  		for(var i = 0; i < dots.length; i++){
+	  			if(dots[i].className = "light"){
+	  				dots[i].className = "";
+	  			}
+	  		}
+	  		dots[index-1].className = "light";
+	  	}
+	  	//根据偏移量来进行平滑的过渡
+	  	function animate(offset){
+	  		switching = true;
+	  		var newLeft = parseInt(list.style.left)+offset;
+	  		var time = 300;//总位移时间
+	  		var interval = 10;//每次位移时间
+	  		var speed = offset/(time/interval);//每次位移的距离
+	  		function go(){
+	  			if(newLeft != parseInt(list.style.left)){
+	  				 list.style.left = parseInt(list.style.left) + speed + 'px';
+	  				 setTimeout(go,10);
+	  			}
+	  			else{
+	  				switching = false;
+	  				if(newLeft > -600){
+	  				list.style.left = '-3000px';
+	  				}
+	  				if(newLeft < -3000){
+	  				list.style.left = '-600px';
+	  				}
+	  			}
+	  		}
+	  		go();
+	  	}	  	
+	  	//为左右按钮添加点击事件
+	  	next.onclick = function(){
+	  		if(!switching){
+	  			animate(-600);
+	  			if(index === 5){index=1;}
+	  			else{index += 1;}
+	  			lightDot();
+	  		}	  		
+	  	}
+
+	  	prev.onclick = function(){
+	  		if(!switching){
+	  			animate(600);
+	  			if(index === 1){index=5;}
+	  			else{index -= 1;}
+	  			lightDot();
+	  		}
+	  	}
+	  	//为小圆点添加点击事件
+	  	for(var i = 0; i < dots.length; i++){
+	  		dots[i].onclick = function(){
+	  			if(this.className=='light' || switching){
+	  				return;
+	  			}
+	  			var myIndex = this.getAttribute('index');
+	  			var offset = -(myIndex-index) * 600;
+	  			animate(offset);
+	  			index = myIndex;
+	  			lightDot(myIndex);
+
+	  		}
+	  	}	  	
+	  	//自动播放
+	  	function play(){
+	  		timer = setInterval(function(){
+	  			next.onclick();
+	  		},2000);	  		
+	  	}
+	  	//停止播放
+	  	function stop(){
+	  		clearInterval(timer);
+	  	}
+	  	// 鼠标经过左右按钮出现,停止自动播放
+	  	wrap.onmouseover = function(){
+	  		prev.style.display = 'block';
+	  		next.style.display = 'block';
+	  		stop();
+	  	}
+	  	//鼠标移开左右按钮消失，开始自动播放
+	  	wrap.onmouseout = function(){
+	  		prev.style.display = 'none';
+	  		next.style.display = 'none';
+	  		play();
+	  	}
+	  	play();
+	  	//TODO:实现轮播的顺序（正序、逆序）、是否循环、间隔时长可配置	  	
+	  };
+
+	</script>
+</body>
+</html>

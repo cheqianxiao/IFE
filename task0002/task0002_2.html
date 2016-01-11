@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>倒计时</title>
+	<style>
+	div {
+		width: 600px;
+		margin: 50px auto;
+		text-align: center;
+	}
+	button {
+		background-color: red;
+	}
+	</style>
+</head>
+<body>
+  <div>
+    <p>请按照特定的格式YYYY-MM-DD输入年月日</p>
+  	<input type="text" id="inp">
+  	<button id="btn">戳我(●'◡'●)</button>
+  	<p id="result"></p>
+    <p class="info" id="info"></p>
+  </div>
+  <script>
+        
+        
+        function counter(){  
+          var inp = document.getElementById('inp').value;          
+        	var dateArr = inp.split('-');
+          var reg= /\d{4}-\d{2}-\d{2}/;
+          var result = document.getElementById('result');
+          if(!reg.test(inp)){
+             result.innerHTML="(＠_＠)格式没有输入正确呢！";
+             return;
+          }
+        	var desDate = new Date(dateArr[0],dateArr[1] - 1,dateArr[2],00,00,00);//输入的时间
+        	var curDate = new Date();//起始点
+        	var time = (desDate - curDate)/1000;
+        	var days = Math.floor(time / (24 * 60 * 60));
+        	var hours = Math.floor(time % (24 * 60 * 60) / (60 * 60));
+        	hours = format(hours);
+			    var minutes = Math.floor(time % (24 * 60 * 60) % (60 * 60)/60);
+			    minutes = format(minutes);
+			    var seconds = Math.floor(time % (24 * 60 * 60) % (60 * 60) % 60);
+			    seconds = format(seconds);
+			    var str = '距离' + dateArr[0] + '年' + dateArr[1] + '月' + dateArr[2] + '日还有' + days + '天' +
+                     hours + '小时' + minutes + '分' + seconds + '秒';
+			    
+			    result.innerHTML = str;
+        }
+        function format(number){
+        	if(number < 10) {
+        		number = '0' + number;
+        	}
+        	return number;
+        }
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){               
+        	setInterval('counter()',1000);
+        }
+        //TODO: 实现每次点击后取一次输入值，每隔一秒计算一次时间，而不是点击后每隔一秒取一次输入值然后计算时间。
+  </script>	
+</body>
+</html>

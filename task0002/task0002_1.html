@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>兴趣处理</title>
+	<style>
+	  .hobby {
+	  	width: 600px;
+	  	margin: 50px auto;
+	  	padding: 20px;
+	  }
+	  ul {
+	  	margin: 0;
+	  	padding: 0;
+	  }
+	  span {
+	  	color: red;
+	  }
+	</style>
+</head>
+<body>
+	<div class="hobby">
+		<p>输入您兴趣爱好，请用用换行、空格（全角/半角）、逗号（全角/半角）、顿号、分号来作为不同爱好的分隔。</p>
+		<textarea name="hobby" id="hobby_input" cols="80" rows="10"></textarea>
+		<button id="btn">提交</button>
+		<span id="notice"></span>
+		<form action="" id="result"></form>
+	</div>
+	<script>
+	var btn = document.getElementById('btn');
+	btn.onclick = function(){
+		var input = document.getElementById('hobby_input').value;
+		var result = document.getElementById('result');
+		var notice = document.getElementById('notice');
+		// 每次提交时把上一次的内容清空（如果有的话），还要把提示信息清空。
+		if(result.hasChildNodes()){
+			result.innerHTML = "";
+		}
+		notice.innerHTML = "";	
+		var arr = input.split(/[,;；，、\n\u3000\u0020]/);
+		// 对得到的数组进行处理去掉空的和重复的
+		function unique(array){
+			var newarr = [];
+			for(var i = 0; i < array.length; i++){
+				if(newarr.indexOf(array[i]) == -1 && array[i] != 0 )
+					newarr.push(array[i]);
+			}
+			return newarr;
+		}
+		var newarr = unique(arr);
+		if(newarr.length > 0 && newarr.length < 10)
+		{
+			for(var i = 0; i < newarr.length; i++){
+			var inp = document.createElement('input');
+			inp.value = newarr[i];
+			inp.type = "checkbox";
+			var text = document.createTextNode(newarr[i]);
+			var br = document.createElement('br');
+			result.appendChild(inp);
+			result.appendChild(text);
+			result.appendChild(br);
+		    }
+		}
+		else{
+			notice.innerHTML="输入的爱好数量不能超过10个，也不能什么都不输入。"		
+		}
+	}
+	
+	
+	</script>	
+</body>
+</html>
