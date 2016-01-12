@@ -88,9 +88,9 @@
 		</div>
 	</div>
 	<script>
-	  window.onload = function(){
 	  	var index = 1;
 	  	var switching = false;
+	  	var timer;
 
 	  	var prev = document.getElementById('prev');
 	  	var next = document.getElementById('next');
@@ -98,6 +98,8 @@
 	  	var wrap = document.getElementById('wrap');
 	  	var buttons = document.getElementById('butttons');
 	  	var dots = document.getElementsByTagName('span');
+
+
 
 	  	
 	  	//根据index点亮对应的小圆点
@@ -138,8 +140,9 @@
 	  		if(!switching){
 	  			animate(-600);
 	  			if(index === 5){index=1;}
-	  			else{index += 1;}
+	  			else{index=index+1;}  	
 	  			lightDot();
+
 	  		}	  		
 	  	}
 
@@ -157,12 +160,11 @@
 	  			if(this.className=='light' || switching){
 	  				return;
 	  			}
-	  			var myIndex = this.getAttribute('index');
+	  			var myIndex = parseInt(this.getAttribute('index'));
 	  			var offset = -(myIndex-index) * 600;
 	  			animate(offset);
-	  			index = myIndex;
+	  			index =myIndex; 
 	  			lightDot(myIndex);
-
 	  		}
 	  	}	  	
 	  	//自动播放
@@ -187,10 +189,9 @@
 	  		next.style.display = 'none';
 	  		play();
 	  	}
+	  	console.log(dots[1].getAttribute('index'))
 	  	play();
-	  	//TODO:实现轮播的顺序（正序、逆序）、是否循环、间隔时长可配置	  	
-	  };
-
+	  	//TODO:实现轮播的顺序（正序、逆序）、是否循环、间隔时长可配置
 	</script>
 </body>
 </html>

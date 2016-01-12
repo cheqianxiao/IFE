@@ -24,8 +24,6 @@
     <p class="info" id="info"></p>
   </div>
   <script>
-        
-        
         function counter(){  
           var inp = document.getElementById('inp').value;          
         	var dateArr = inp.split('-');
@@ -34,6 +32,12 @@
           if(!reg.test(inp)){
              result.innerHTML="(＠_＠)格式没有输入正确呢！";
              return;
+          }             
+          function format(number){
+          if(number < 10) {
+            number = '0' + number;
+          }
+          return number;
           }
         	var desDate = new Date(dateArr[0],dateArr[1] - 1,dateArr[2],00,00,00);//输入的时间
         	var curDate = new Date();//起始点
@@ -50,14 +54,8 @@
 			    
 			    result.innerHTML = str;
         }
-        function format(number){
-        	if(number < 10) {
-        		number = '0' + number;
-        	}
-        	return number;
-        }
         var btn = document.getElementById('btn');
-        btn.onclick = function(){               
+        btn.onclick = function(){ 
         	setInterval('counter()',1000);
         }
         //TODO: 实现每次点击后取一次输入值，每隔一秒计算一次时间，而不是点击后每隔一秒取一次输入值然后计算时间。

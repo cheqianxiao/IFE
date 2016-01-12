@@ -39,11 +39,11 @@
 		}
 		notice.innerHTML = "";	
 		var arr = input.split(/[,;；，、\n\u3000\u0020]/);
-		// 对得到的数组进行处理去掉空的和重复的
+		// 对得到的数组进行处理去掉重复的
 		function unique(array){
 			var newarr = [];
 			for(var i = 0; i < array.length; i++){
-				if(newarr.indexOf(array[i]) == -1 && array[i] != 0 )
+				if(newarr.indexOf(array[i]) == -1 && array[i] != "")
 					newarr.push(array[i]);
 			}
 			return newarr;
@@ -65,9 +65,7 @@
 		else{
 			notice.innerHTML="输入的爱好数量不能超过10个，也不能什么都不输入。"		
 		}
-	}
-	
-	
+	}	
 	</script>	
 </body>
 </html>
