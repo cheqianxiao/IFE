@@ -98,8 +98,17 @@
 	  	var wrap = document.getElementById('wrap');
 	  	var buttons = document.getElementById('butttons');
 	  	var dots = document.getElementsByTagName('span');
+	  	var INTERVAL = 2000;
+	  	var loop = true;
 
+	  	var order = "next";
 
+        window.onload = function(){
+        	play();
+        	if(!loop){
+        		setTimeout(stop,5*INTERVAL);
+        	}
+        }
 
 	  	
 	  	//根据index点亮对应的小圆点
@@ -136,7 +145,7 @@
 	  		go();
 	  	}	  	
 	  	//为左右按钮添加点击事件
-	  	next.onclick = function(){
+	  	function nextImage(){
 	  		if(!switching){
 	  			animate(-600);
 	  			if(index === 5){index=1;}
@@ -146,7 +155,7 @@
 	  		}	  		
 	  	}
 
-	  	prev.onclick = function(){
+	  	function prevImage(){
 	  		if(!switching){
 	  			animate(600);
 	  			if(index === 1){index=5;}
@@ -169,28 +178,35 @@
 	  	}	  	
 	  	//自动播放
 	  	function play(){
-	  		timer = setInterval(function(){
-	  			next.onclick();
-	  		},2000);	  		
+	  		if(order == "next"){
+	  			timer = setInterval(function(){
+	  			    nextImage();
+	  		    },INTERVAL);
+	  		}else if(order == "prev"){
+	  			timer = setInterval(function(){
+	  			    prevImage();
+	  		    },INTERVAL);
+	  		}
+	  			  		
 	  	}
 	  	//停止播放
 	  	function stop(){
 	  		clearInterval(timer);
 	  	}
 	  	// 鼠标经过左右按钮出现,停止自动播放
-	  	wrap.onmouseover = function(){
-	  		prev.style.display = 'block';
-	  		next.style.display = 'block';
-	  		stop();
-	  	}
+	  	// wrap.onmouseover = function(){
+	  	// 	prev.style.display = 'block';
+	  	// 	next.style.display = 'block';
+	  	// 	stop();
+	  	// }
 	  	//鼠标移开左右按钮消失，开始自动播放
-	  	wrap.onmouseout = function(){
-	  		prev.style.display = 'none';
-	  		next.style.display = 'none';
-	  		play();
-	  	}
-	  	play();
-	  	//TODO:实现轮播的顺序（正序、逆序）、是否循环、间隔时长可配置
+	  	// wrap.onmouseout = function(){
+	  	// 	prev.style.display = 'none';
+	  	// 	next.style.display = 'none';
+	  	// 	play();
+	  	// }
+	  	
+	  	//2016.01.015完成了是否循环、间隔时间、正序逆序可配置。
 	</script>
 </body>
 </html>
