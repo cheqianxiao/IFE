@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>自动提示</title>
+  <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    background: url(http://cupcake.nilssonlee.se/wp-content/uploads/2014/09/IMG_3560-1200x800.jpg) no-repeat center center;
+    font-family: 'Microsoft YaHei', 'SimHei', 'STHeiti', sans-serif;
+    background-size: cover;
+  }
+  
+  .search {
+    position: relative;
+    top: 200px;
+    margin: 0 auto;
+    width: 400px;
+  }
+  
+  form {
+    position: relative;
+    width: 400px;
+  }
+  
+  .search-input {
+    box-sizing: border-box;
+    line-height: 40px;
+    width: 400px;
+    border: none;
+    padding: 0;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+  }
+  
+  .search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+  }
+  
+  ul {
+    width: 400px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: #fff;
+    display: none;
+  }
+  
+  ul li {
+    line-height: 30px;
+    cursor: pointer;
+    padding-left: 10px;
+    box-sizing: border-box;
+  }
+  
+  ul li.active {
+    background-color: #aaa;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="search">
+    <form action="">
+      <input type="text" id="keyword" class="search-input" placeholder="输入a,b,c试试~">
+      <button class="search-btn">
+        <i class="fa fa-search fa-lg"></i>
+      </button>
+    </form>
+    <ul id="suggest-result" class="suggest">
+    </ul>
+  </div>
+  <script>
+  //learn from  https://github.com/Gaohaoyang/ife/blob/master/task/task0002/work/Gaohaoyang/js/task0002_4.js
+  //优化了鼠标和上下键的自由切换
+  //增加：点击除input以外的其他地方时ul消失
+
+  var suggestData = ["a", "app", "apple", "application", "b", "but", "butter", "butterfly", "c", "call", "cater", "calculate"];
+  var inpArea = document.getElementById("keyword");
+  var ulArea = document.getElementById("suggest-result");
+
+  document.getElementsByTagName("body")[0].style.height = window.innerHeight + 'px';
+
+  addInputListener();
+  liClick();
+  liKeydown();
+
+  function addInputListener() {
+    if (inpArea.addEventListener) { // all browsers except IE before version 9
+      inpArea.addEventListener("input", OnInput);
+    } else {
+      inpArea.attachEvent("onpropertychange", OnPropChanged); //IE8, IE7, IE6
+    }
+  }
+
+  function OnInput(event) {
+    var inpValue = event.target.value;
+    inpHandler(inpValue);
+  }
+
+  function OnPropChanged(event) {
+    if (event.propertyName.toLowerCase() == "value") {
+      var inpValue = event.srcElement.value;
+      inpHandler(inpValue);
+    }
+  }
+
+  function inpHandler(inpValue) {
+    var liString = "";
+    var reg = new RegExp("^" + inpValue, "i");
+    if (inpValue) {
+      for (var i = 0; i < suggestData.length; i++) {
+        if (suggestData[i].match(reg)) {
+          liString += "<li><strong>" + inpValue + "</strong>" + suggestData[i].slice(inpValue.length) + "</li>";
+        }
+      }
+      ulArea.innerHTML = liString;
+      ulArea.style.display = "block";
+    } else {
+      ulArea.style.display = "none";
+    }
+  }
+
+  function liClick() {
+    delegateEvent(ulArea, "li", "mouseover", function() {
+      clearActLi()
+      this.className = "active";
+    });
+    delegateEvent(ulArea, "li", "mouseout", function() {
+      this.className = "";
+    });
+    delegateEvent(ulArea, "li", "click", function() {
+      inpArea.value = deleteStrong(this.innerHTML);
+      ulArea.style.display = "none";
+    });
+    addEvent(document, "click", function() {
+      ulArea.style.display = "none";
+    });
+    addEvent(inpArea, "click", function(event) {
+      event.stopPropagation();
+    });
+
+  }
+
+  function clearActLi() {
+    for (var i = 0; i < ulArea.children.length; i++) {
+      if (ulArea.children[i].className === "active") {
+        ulArea.children[i].className = "";
+      }
+    }
+  }
+
+  function deleteStrong(str) {
+    return str.replace(/(<strong>)|(<\/strong>)/g, "");
+  }
+
+  function addEvent(el, event, func) {
+    if (el.addEventListener) {
+      el.addEventListener(event, func, false);
+    } else {
+      el.attachEvent("on" + event, func);
+    }
+  }
+
+  function delegateEvent(parentEl, childEl, event, callback) {
+    addEvent(parentEl, event, function(event) {
+      var target = event.target || event.srcElement;
+      if (target.tagName.toLowerCase() === childEl) {
+        callback.apply(target);
+      }
+    });
+  }
+
+  function liKeydown() {
+    addEvent(inpArea, "keydown", function(event) {
+      var list = ulArea.children;
+      var actLi = document.getElementsByClassName("active")[0];
+      if (event.keyCode === 40) {
+        if (actLi) {
+          var nextLi = actLi.nextSibling;
+          if (nextLi) {
+            actLi.className = "";
+            nextLi.className = "active"
+          } else {
+            actLi.className = "";
+            list[0].className = "active";
+          }
+        } else {
+          list[0].className = "active";
+        }
+      }
+      if (event.keyCode === 38) {
+        if (actLi) {
+          var prevLi = actLi.previousSibling;
+          if (prevLi) {
+            actLi.className = "";
+            prevLi.className = "active"
+          } else {
+            actLi.className = "";
+            list[list.length - 1].className = "active";
+          }
+        } else {
+          list[0].className = "active";
+        }
+
+      }
+      if (event.keyCode === 13) {
+        inpArea.value = deleteStrong(actLi.innerHTML);
+        ulArea.style.display = "none";
+      }
+    });
+  }
+  </script>
+</body>
+
+</html>
