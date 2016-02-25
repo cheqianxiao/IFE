@@ -223,8 +223,11 @@
 
       }
       if (event.keyCode === 13) {
-        inpArea.value = deleteStrong(actLi.innerHTML);
-        ulArea.style.display = "none";
+        if(actLi){
+          inpArea.value = deleteStrong(actLi.innerHTML);
+          ulArea.style.display = "none";
+        }
+        
       }
     });
   }
