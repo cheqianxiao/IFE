@@ -214,7 +214,7 @@ aside label {
   float: left;
   width: 110px;
   padding-right: 15px;
-  padding-top: 3px;
+  line-height: 22px;
   text-align: right;
 }
 
