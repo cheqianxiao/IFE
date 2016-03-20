@@ -31,6 +31,7 @@ ul {
 
 header {
   height: 55px;
+  width: 100%;
   line-height: 55px;
   background-color: #333;
   font-size: 12px;
@@ -276,6 +277,7 @@ button.submit {
 /*footer开始*/
 
 footer {
+  width: 100%;
   padding: 20px 0 36px 0;
   text-align: center;
   background-color: #000;
