@@ -1,0 +1,256 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #dedede;
+  font-size: 14px;
+  font-family: "Microsoft Yahei", "serif";
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix:after {
+  display: block;
+  content: "";
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+
+/*header开始*/
+
+header {
+  height: 55px;
+  line-height: 55px;
+  background-color: #333;
+  font-size: 12px;
+}
+
+header .content {
+  width: 1240px;
+  margin: 0 auto;
+}
+
+.content a img {
+  display: block;
+}
+
+header ul li {
+  float: left;
+  margin-left: 20px;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+header ul li a:hover {
+  color: #aaa;
+}
+
+
+/*header结束*/
+
+
+/*main开始*/
+
+.main {
+  width: 1240px;
+  margin: 20px auto 20px;
+}
+
+article,
+aside {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 1240px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  box-shadow: 2px 2px #aaa;
+}
+
+aside {
+  width: 1220px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+article h3 {
+  color: #a9a9a9;
+}
+
+article p {
+  text-indent: 2em;
+  line-height: 1.8em;
+}
+
+article .author,
+article .time {
+  color: #666;
+  font-size: 12px;
+}
+
+article .author {
+  margin-right: 10px;
+}
+
+article ul {
+  list-style-type: none;
+  margin: 10px 0 0 20px;
+  line-height: 1.8;
+}
+
+.pictures {
+  margin-left: 62px;
+}
+
+.picbox {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 5px 10px 10px;
+  width: 122px;
+  border: 1px solid #aaa;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.picbox img {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 82px;
+}
+
+.picbox p {
+  margin: 0;
+  line-height: 40px;
+  text-indent: 0;
+  font-size: 12px;
+}
+
+article ol li {
+  line-height: 25px;
+}
+
+table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  line-height: 25px;
+  border: 1px solid #aaa;
+  padding-left: 6px;
+  text-align: left;
+}
+
+thead th {
+  background-color: #333;
+  color: #fff;
+}
+
+tfoot td {
+  border: none;
+  background-color: #ccc
+}
+
+aside h3 {
+  line-height: 40px;
+  padding-left: 12px;
+  border-left: 3px solid #cacaca;
+}
+
+aside form {
+  width: 100%;
+  font-size: 12px;
+}
+
+aside label {
+  display: inline-block;
+  width: 370px;
+  padding-right: 13px;
+  text-align: right;
+}
+
+.reg {
+  margin-bottom: 10px;
+}
+
+.reg p {
+  padding-left: 388px;
+  color: #aaa;
+}
+
+.reg-email input,
+.reg-pw input,
+.reg-repw input {
+  width: 130px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.reg-city select {
+  width: 55px;
+  height: 18px;
+  border-radius: 3px;
+}
+
+.reg-sex input,
+.reg-sex span,
+.reg-hobby input,
+.reg-hobby span {
+  vertical-align: middle;
+}
+
+.reg-selfdes textarea {
+  width: 768px;
+  height: 100px;
+  vertical-align: top;
+}
+
+button.submit {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #3355d0;
+  border: none;
+  color: #fff;
+}
+
+
+/*main结束*/
+
+footer {
+  padding: 20px 0 36px 0;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+}
+
+footer p {
+  margin: 0;
+}
