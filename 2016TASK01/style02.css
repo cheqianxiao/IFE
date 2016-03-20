@@ -32,6 +32,7 @@ ul {
 
 header {
   height: 55px;
+  width: 100%;
   line-height: 55px;
   background-color: #333;
   font-size: 12px;
@@ -128,7 +129,7 @@ article ul {
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 5px 10px 10px;
+  padding-bottom: 10px;
   width: 122px;
   border: 1px solid #aaa;
   text-align: center;
@@ -137,9 +138,9 @@ article ul {
 
 .picbox img {
   display: block;
-  margin: 0 auto;
-  width: 100px;
   height: 82px;
+  width: 100px;
+  margin: 0 auto;
 }
 
 .picbox p {
@@ -188,10 +189,17 @@ aside form {
   font-size: 12px;
 }
 
+aside form label,
+aside form input,
+aside form textarea {
+  box-sizing: border-box;
+}
+
 aside label {
-  display: inline-block;
-  width: 370px;
-  padding-right: 13px;
+  float: left;
+  width: 368px;
+  padding-right: 15px;
+  line-height: 22px;
   text-align: right;
 }
 
@@ -200,7 +208,8 @@ aside label {
 }
 
 .reg p {
-  padding-left: 388px;
+  padding-left: 368px;
+  margin-bottom: 24px;
   color: #aaa;
 }
 
@@ -208,8 +217,8 @@ aside label {
 .reg-pw input,
 .reg-repw input {
   width: 130px;
-  height: 20px;
-  line-height: 20px;
+  height: 22px;
+  line-height: 22px;
 }
 
 .reg-city select {
@@ -245,6 +254,7 @@ button.submit {
 /*main结束*/
 
 footer {
+  width: 100%;
   padding: 20px 0 36px 0;
   text-align: center;
   background-color: #000;
