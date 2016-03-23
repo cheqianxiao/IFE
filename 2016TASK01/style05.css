@@ -205,13 +205,13 @@ aside form {
   font-size: 12px;
 }
 
-aside form label,
+aside form .item,
 aside form input,
 aside form textarea {
   box-sizing: border-box;
 }
 
-aside label {
+aside .item {
   float: left;
   width: 110px;
   padding-right: 15px;
