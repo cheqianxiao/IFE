@@ -3,7 +3,7 @@ body {
   margin: 0;
   background-color: #dedede;
   font-size: 14px;
-  font-family: "Microsoft Yahei", "serif";
+  font-family: "微软雅黑";
 }
 
 ul {
@@ -90,8 +90,7 @@ aside {
 
 aside {
   width: 1220px;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin: 40px auto 20px 0;
 }
 
 article h3 {
@@ -189,13 +188,13 @@ aside form {
   font-size: 12px;
 }
 
-aside form label,
 aside form input,
+aside form .item,
 aside form textarea {
   box-sizing: border-box;
 }
 
-aside label {
+aside .item {
   float: left;
   width: 368px;
   padding-right: 15px;

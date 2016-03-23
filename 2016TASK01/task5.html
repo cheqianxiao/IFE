@@ -50,6 +50,9 @@
               <li>列表项目二</li>
               <li>列表项目三</li>
             </ul>
+            
+          </article>
+          <article>
             <h2>图片</h2>
             <div class="pictures clearfix">
               <div class="picbox">
@@ -148,40 +151,45 @@
         <h3>这里以后是一个侧栏，这是侧栏的标题</h3>
         <form action="">
           <div class="reg reg-email">
-            <label for="">请输入邮箱地址</label>
-            <input type="text">
+            <label class="item" for="email">请输入邮箱地址</label>
+            <input id="email" type="text">
             <p>邮箱地址请按要求格式输入</p>
           </div>
           <div class="reg reg-pw">
-            <label for="">请输入密码</label>
-            <input type="password">
+            <label class="item" for="password">请输入密码</label>
+            <input id="password" type="password">
           </div>
           <div class="reg reg-repw">
-            <label for="">请重复输入密码</label>
-            <input type="password">
+            <label class="item" for="repassword">请重复输入密码</label>
+            <input id="repassword" type="password">
             <p>密码请为6-16位数字</p>
           </div>
           <div class="reg reg-sex">
-            <label for="">性别</label>
-            <input type="radio" name="sex" value="男" checked="checked"><span>男</span>
-            <input type="radio" name="sex" value="女"><span>女</span>
+            <div class="item">性别</div>
+            <label for="male">
+              <input id="male" type="radio" name="sex" value="male" checked="checked"><span>男</span></label>
+            <label for="female">
+              <input id="female" type="radio" name="sex" value="female"><span>女</span></label>
           </div>
           <div class="reg reg-city">
-            <label for="">城市</label>
+            <div class="item">城市</div>
             <select name="" id="">
-              <option value="北京" selected="selected">北京</option>
-              <option value="南京">南京</option>
-              <option value="上海">上海</option>
+              <option value="beijing" selected="selected">北京</option>
+              <option value="guangzhou">南京</option>
+              <option value="shanghai">上海</option>
             </select>
           </div>
           <div class="reg reg-hobby">
-            <label for="">爱好</label>
-            <input type="checkbox"><span>运动</span>
-            <input type="checkbox"><span>艺术</span>
-            <input type="checkbox"><span>科学</span>
+            <div class="item">爱好</div>
+            <label for="exercise">
+              <input id="exercise" type="checkbox">运动</label>
+            <label for="art">
+              <input id="art" type="checkbox">艺术</label>
+            <label for="science">
+              <input id="science" type="checkbox">科学</label>
           </div>
           <div class="reg reg-selfdes">
-            <label for="">个人描述</label>
+            <div class="item">个人描述</div>
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
           <button class="submit" type="submit">确认提交</button>
@@ -189,7 +197,7 @@
       </aside>
     </div>
     <footer>
-      <p>版权所有©</p>
+      <p>版权所有<span style="vertical-align: middle;">&copy;</span></p>
     </footer>
   </body>
 
