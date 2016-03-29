@@ -1,0 +1,846 @@
+/*reset css*/
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Microsoft YaHei";
+  padding-top: 57px;
+}
+
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
+p {
+  margin: 0;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/*end reset css*/
+
+
+/*public style*/
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+
+.justifyfix {
+  text-align: justify;
+}
+
+.justifyfix:after {
+  content: "";
+  width: 100%;
+  height: 0;
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.short-line {
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+}
+
+.cutter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  top: 50%;
+  margin-top: -16px;
+}
+
+.cutter-left {
+  border-width: 16px 25px 16px 25px;
+  left: -50px;
+  border-color: transparent #fff transparent transparent;
+}
+
+.cutter-right {
+  border-width: 16px 25px 16px 25px;
+  border-color: transparent transparent transparent #fff;
+  left: 0;
+}
+
+.section-wrap {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.section {
+  width: 1220px;
+  margin: 0 auto;
+}
+
+
+/*end public style*/
+
+
+/*header*/
+
+.section-header {
+  height: 57px;
+  line-height: 57px;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background-color: #fff;
+}
+
+.section .logo a {
+  font-size: 21px;
+  font-family: "SimHei";
+  color: #393a3a;
+}
+
+.section-header .logo a img {
+  margin-bottom: -5px;
+  margin-right: 10px;
+}
+
+.nav li {
+  float: left;
+  margin-left: 46px;
+}
+
+.nav li a {
+  display: block;
+  width: 66px;
+  height: 57px;
+  color: #acaeb2;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.nav a:hover {
+  border-bottom: 4px solid #e74f4d;
+  color: #e74f4d;
+}
+
+.nav li.login i {
+  display: inline-block;
+  width: 14px;
+  height: 17px;
+  margin-bottom: -3px;
+  margin-right: 5px;
+  background: url(images-7/login.png) no-repeat 0 0;
+}
+
+.nav li.login a {
+  color: #e74f4d;
+}
+
+
+/*end header*/
+
+
+/*main*/
+
+.get-start {
+  height: 690px;
+  padding: 230px 0 0 126px;
+  background: url(images-7/startbg.png) no-repeat center center;
+  background-size: 100% 100%;
+  color: #fff;
+  font-weight: lighter;
+}
+
+.get-start h1 {
+  font-size: 60px;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  left: -12px;
+}
+
+.get-start p {
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.get-start a.btn {
+  width: 330px;
+  height: 65px;
+  background-color: #e74f4d;
+  color: #fff;
+  font-size: 30px;
+  line-height: 65px;
+  display: block;
+  margin-top: 68px;
+}
+
+.features {
+  height: 250px;
+  padding-top: 45px;
+}
+
+.feature p {
+  height: 52px;
+  padding: 0 85px;
+  line-height: 18px;
+  border-right: 2px solid #aaa;
+  color: #767777;
+  font-size: 14px;
+  font-family: "SimHei";
+}
+
+.feature img {
+  margin-bottom: 45px;
+}
+
+.one {
+  width: 324px;
+}
+
+.two {
+  width: 335px;
+}
+
+.three {
+  width: 318px;
+}
+
+.four {
+  width: 304px;
+}
+
+.four p {
+  border-right: 0px solid #aaa;
+}
+
+.learn-more {
+  padding: 90px 0 80px;
+  background-color: #edecec;
+}
+
+.learn-more h1 {
+  margin: 36px 0 0;
+  font-size: 54px;
+  font-family: "SimHei";
+  color: #a1a1a1;
+}
+
+.find-city {
+  height: 340px;
+  padding-top: 53px;
+  background: url(images-7/map.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+.find-city h4 {
+  font-size: 21px;
+  line-height: 24px;
+  font-weight: lighter;
+}
+
+.find-city p {
+  font-size: 12px;
+  line-height: 48px;
+}
+
+.find-city .select {
+  width: 1030px;
+  margin: 0 auto;
+}
+
+.find-city .select-box {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  font-size: 12px;
+}
+
+.find-city .select-box input,
+.find-city .select .submit {
+  width: 238px;
+  height: 36px;
+  line-height: 36px;
+  font-family: "Microsoft YaHei";
+}
+
+.find-city .select-box input {
+  padding-left: 10px;
+  font-size: 12px;
+  color: #a8aaaa;
+  border: 1px solid #fff;
+}
+
+.find-city .select .submit {
+  background-color: #be4e48;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 20px;
+  padding-left: 10px;
+}
+
+.find-city .select-box .dropdown {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 18px;
+  height: 18px;
+  background: url(images-7/dropdown.png) no-repeat 0 0;
+  cursor: pointer;
+}
+
+.find-city .select-box ul {
+  display: none;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 238px;
+  color: #a8aaaa;
+  line-height: 27px;
+  padding-bottom: 15px;
+  background-color: #e3e2e4;
+  border: 1px solid #be4e48;
+}
+
+.find-city .select-box ul li {
+  padding-left: 33px;
+  cursor: pointer;
+}
+
+.find-city .select-box ul li:hover {
+  background-color: #be4e48;
+  color: #fff;
+}
+
+.select-box input:focus {
+  border: 1px solid #be4e48;
+  border-bottom: none;
+}
+
+.select-box input:focus+ul {
+  display: block;
+}
+
+.activities {
+  background-color: #f7f7f7;
+  padding: 100px 0;
+}
+
+.activities-content {
+  width: 990px;
+  margin: 0 auto;
+}
+
+.activity {
+  display: inline-block;
+  width: 219px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.activity img {
+  padding: 15px 7px;
+  border: 1px solid #dedede;
+  border-bottom: none;
+  background-color: #fff;
+}
+
+.activity h4 {
+  font-size: 14px;
+  margin: 9px 0;
+}
+
+.activity p {
+  font-size: 12px;
+  color: #a8aaaa;
+}
+
+.activity-shanghai h4 {
+  width: 195px;
+  margin: 13px auto 9px;
+  font-size: 21px;
+  line-height: 0px;
+}
+
+.activity-shanghai p {
+  margin: 5px 0;
+}
+
+.poster {
+  height: 567px;
+}
+
+.poster .poster-img {
+  width: 850px;
+  height: 100%;
+  background: url(images-7/poster.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+.poster .poster-img h2 {
+  margin: 125px auto 0;
+  font-size: 49.473px;
+}
+
+.poster .poster-img h1 {
+  margin: 0 auto 30px;
+  font-size: 157.788px;
+  line-height: 0.8;
+}
+
+.poster .poster-img p {
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+.poster .poster-img p.date {
+  text-indent: -1.5em;
+}
+
+.poster .poster-info {
+  position: relative;
+  width: 430px;
+  height: 100%;
+  padding: 136px 0 0;
+}
+
+.poster-info h4 {
+  font-size: 21px;
+  font-family: "SimHei";
+  margin: 28px 0 25px;
+}
+
+.poster-info h4 span {
+  color: #e74f4d;
+}
+
+.poster-info p {
+  width: 288px;
+  margin: 0 auto 50px;
+  color: #aaa;
+  text-align: left;
+  font-family: "SimSun";
+  font-size: 12px;
+  line-height: 2.5;
+}
+
+.poster-info a {
+  display: inline-block;
+  width: 105px;
+  height: 35px;
+  line-height: 35px;
+  border: 1px solid #e74f4d;
+  color: #e74f4d;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.poster-info a:hover {
+  background-color: #e74f4d;
+  color: #fff;
+}
+
+.poster-info .dots {
+  width: 63px;
+  margin: 25px auto;
+}
+
+.poster-info .dots span {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid #929293;
+  cursor: pointer;
+}
+
+.dots span.active {
+  background-color: #929293;
+}
+
+.dots span:hover {
+  background-color: #929293;
+}
+
+.about-us .find-more {
+  width: 425px;
+  font-family: "SimHei";
+  padding: 160px 0 178px;
+}
+
+.about-us .find-more h4 {
+  font-size: 21px;
+  margin: 8px 0;
+}
+
+.about-us .find-more a {
+  display: block;
+  width: 170px;
+  height: 45px;
+  margin: 25px auto;
+  line-height: 45px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 21px;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.about-us .left {
+  background-color: #e74f4d;
+  color: #fff;
+}
+
+.about-us .left a {
+  color: #fff;
+}
+
+.about-us .left a:hover {
+  background-color: #fff;
+  color: #e74f4d;
+}
+
+.about-us .mid a {
+  border-color: #e74f4d;
+  color: #e74f4d;
+  background-color: #fff;
+}
+
+.about-us .mid a:hover {
+  background-color: #e74f4d;
+  color: #fff;
+}
+
+.about-us .mid .short-line {
+  background-color: #ababab;
+}
+
+.about-us .find-more:hover .short-line {
+  width: 80px;
+}
+
+.about-us .find-more .short-line {
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+.about-us .right {
+  width: 430px;
+  height: 521px;
+  background: url(images-7/poster-r.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.be-volunteer {
+  padding: 120px 0 167px;
+}
+
+.be-volunteer h4 {
+  margin: 0 auto -5px;
+  font-family: "SimHei";
+  font-size: 21px;
+}
+
+.be-volunteer .short-line {
+  background-color: #e74f4d;
+}
+
+.be-volunteer .short-line+p {
+  width: 420px;
+  color: #aaa;
+  margin: 15px auto 107px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.be-volunteer .form-paper {
+  width: 1005px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-paper .details {
+  width: 288px;
+}
+
+.detail h5 {
+  margin: 0 auto 22px;
+  font-family: "SimHei";
+  font-size: 14px;
+  color: #231815;
+}
+
+.detail p.detail-content {
+  font-size: 12px;
+  font-family: "SimSun";
+  color: rgba(35, 24, 21, 0.6);
+  line-height: 1.75;
+}
+
+.detail p.getmore {
+  height: 10px;
+  line-height: 10px;
+  text-align: right;
+  background: url(images-7/more.png) no-repeat 245px 5px;
+}
+
+.detail .getmore a {
+  font-size: 12px;
+  font-family: "SimSun";
+  color: rgba(35, 24, 21, 0.6);
+}
+
+.detail-terms {
+  margin-bottom: 40px;
+}
+
+.detail-rights {
+  margin-bottom: 20px;
+}
+
+.detail-more h5 {
+  margin-bottom: 14px;
+}
+
+.form-paper form {
+  width: 640px;
+}
+
+.form-paper form input[type=text],
+.form-paper form textarea {
+  height: 40px;
+  margin-bottom: 12px;
+  padding-left: 18px;
+  background-color: #ededee;
+  font-size: 12px;
+  font-family: "SimSun";
+  color: rgba(35, 24, 21, 0.8);
+}
+
+.form-paper form input[type=text] {
+  width: 310px;
+}
+
+.form-paper form input[type=submit],
+.form-paper form textarea {
+  width: 640px;
+}
+
+.form-paper form input[type=submit] {
+  height: 40px;
+  font-size: 14px;
+  font-family: "SimHei";
+  color: #323333;
+  background-color: #ededee;
+}
+
+.form-paper form textarea {
+  height: 122px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+
+/*end main*/
+
+
+/*footer*/
+
+.contact-us {
+  padding: 90px 0 70px;
+  background-color: #32363e;
+  color: #fff;
+}
+
+.contact-us h4 {
+  font-size: 21px;
+  font-family: "SimHei";
+  font-weight: normal;
+  margin: 0 auto 12px;
+}
+
+.contact-us p {
+  font-size: 12px;
+  font-family: "SimSun";
+  width: 468px;
+  line-height: 1.5;
+  margin: 0 auto 30px;
+}
+
+.contact-us form {
+  width: 512px;
+  height: 40px;
+  margin: 0 auto 35px;
+}
+
+.contact-us input.search-inp {
+  width: 430px;
+  height: 100%;
+  color: #aaa;
+  padding-left: 10px;
+}
+
+.contact-us input.search-btn {
+  width: 82px;
+  height: 100%;
+  background-color: #6f7178;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0.5em;
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+.contact-us .sns {
+  width: 183px;
+  height: 28px;
+  margin: 0 auto;
+}
+
+.contact-us .sns li,
+.contact-us .sns li a {
+  display: inline-block;
+  width: 28px;
+  height: 30px;
+}
+
+.contact-us .sns li a {
+  text-indent: -9999px;
+  background: url(images-7/sns.png) no-repeat;
+}
+
+.contact-us .sns li a.qq {
+  background-position: 0 0;
+}
+
+.contact-us .sns li a.weibo {
+  background-position: -52px 0;
+}
+
+.contact-us .sns li a.twitter {
+  background-position: -104 0;
+}
+
+.contact-us .sns li a.dribble {
+  background-position: -156px 0;
+}
+
+.copyright {
+  position: relative;
+  height: 60px;
+  padding: 30px 100px 17px;
+  background-color: #2f2f38;
+  font-size: 13px;
+  font-family: "SimSun";
+  line-height: 1;
+  color: #fff;
+}
+
+.copyright a {
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  color: #fff;
+}
+
+
+/*end footer*/
+
+
+/*media query*/
+
+@media screen and (min-width:1280px) {
+  .section-wrap {
+    width: 100%;
+  }
+  .get-start {
+    padding-left: 10%;
+  }
+  .one {
+    width: 25%;
+  }
+  .two {
+    width: 26%;
+  }
+  .three {
+    width: 25%;
+  }
+  .four {
+    width: 24%;
+  }
+  .features .feature p {
+    padding: 0 26%;
+  }
+  .poster .poster-img {
+    width: 66%;
+  }
+  .poster .poster-info {
+    width: 34%;
+  }
+  .about-us .find-more {
+    width: 33%;
+  }
+  .about-us .right {
+    width: 34%;
+  }
+}
+
+
+/*end media query
