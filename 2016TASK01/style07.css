@@ -112,7 +112,8 @@ a {
 }
 
 .section-wrap {
-  width: 1280px;
+  width: 100%;
+  min-width: 1280px;
   margin: 0 auto;
 }
 
@@ -137,6 +138,8 @@ a {
 }
 
 .section .logo a {
+  display: block;
+  height: 57px;
   font-size: 21px;
   font-family: "SimHei";
   color: #393a3a;
@@ -189,7 +192,8 @@ a {
 
 .get-start {
   height: 690px;
-  padding: 230px 0 0 126px;
+  padding-top: 230px;
+  padding-left: 10%;
   background: url(images-7/startbg.png) no-repeat center center;
   background-size: 100% 100%;
   color: #fff;
@@ -228,7 +232,7 @@ a {
 
 .feature p {
   height: 52px;
-  padding: 0 85px;
+  padding: 0 26%;
   line-height: 18px;
   border-right: 2px solid #aaa;
   color: #767777;
@@ -241,19 +245,19 @@ a {
 }
 
 .one {
-  width: 324px;
+  width: 25%;
 }
 
 .two {
-  width: 335px;
+  width: 26%;
 }
 
 .three {
-  width: 318px;
+  width: 25%;
 }
 
 .four {
-  width: 304px;
+  width: 24%;
 }
 
 .four p {
@@ -356,7 +360,7 @@ a {
 }
 
 .find-city .select-box ul li:hover {
-  background-color: #be4e48;
+  background: url(images-7/checked.png) no-repeat 8px 9px #be4e48;
   color: #fff;
 }
 
@@ -416,6 +420,14 @@ a {
 
 .poster {
   height: 567px;
+}
+
+.poster .poster-img {
+  width: 66%;
+}
+
+.poster .poster-info {
+  width: 34%;
 }
 
 .poster .poster-img {
@@ -511,6 +523,14 @@ a {
 
 .dots span:hover {
   background-color: #929293;
+}
+
+.about-us .find-more {
+  width: 33%;
+}
+
+.about-us .right {
+  width: 34%;
 }
 
 .about-us .find-more {
@@ -775,7 +795,7 @@ a {
 }
 
 .contact-us .sns li a.twitter {
-  background-position: -104 0;
+  background-position: -104px 0;
 }
 
 .contact-us .sns li a.dribble {
@@ -803,44 +823,3 @@ a {
 
 /*end footer*/
 
-
-/*media query*/
-
-@media screen and (min-width:1280px) {
-  .section-wrap {
-    width: 100%;
-  }
-  .get-start {
-    padding-left: 10%;
-  }
-  .one {
-    width: 25%;
-  }
-  .two {
-    width: 26%;
-  }
-  .three {
-    width: 25%;
-  }
-  .four {
-    width: 24%;
-  }
-  .features .feature p {
-    padding: 0 26%;
-  }
-  .poster .poster-img {
-    width: 66%;
-  }
-  .poster .poster-info {
-    width: 34%;
-  }
-  .about-us .find-more {
-    width: 33%;
-  }
-  .about-us .right {
-    width: 34%;
-  }
-}
-
-
-/*end media query
