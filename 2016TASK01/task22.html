@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>task22</title>
+  <style>
+  * {
+    box-sizing: border-box
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  div {
+    display: flex;
+    border: 1px solid #000;
+    margin: 13px;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  
+  #outermost {
+    height: 200px;
+    width: 45%;
+    min-width: 600px;
+    margin: 50px auto;
+  }
+  
+  #outermost div {
+  	flex: 1 1 20px;
+  }
+  #btnGroup {
+    border: 0px solid #000;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 150px;
+  }
+  
+  #btnGroup button {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 10px;
+    background-color: tomato;
+    cursor: pointer;
+    outline: none;
+    font: 14px "Microsoft Yahei";
+    border: none;
+    border-radius: 4px;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="outermost">
+    <div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div id="btnGroup">
+    <button id="dfs">深度优先</button>
+    <button id="bfs">广度优先</button>
+  </div>
+  <script>
+  (function() {
+    var Search = function(rootNdoeId, btnGroupId) {
+        this.rootNode = document.getElementById(rootNdoeId|| 'outermost');
+        this.btnGroup = document.getElementById(btnGroupId || 'btnGroup');
+
+        this.dfsArr = [];
+        this.bfsArr = [];
+        
+        this.dTraversal();
+        this.bTraversal();
+
+        this.searchState = "not-finding";
+        
+        var self = this;
+
+        this.btnGroup.addEventListener('click', function(e) {
+          if (self.searchState === "not-finding") {
+            if (e.target.id === "dfs") {
+              self.changeBgColor(self.dfsArr);
+            } else if (e.target.id === "bfs") {
+              self.changeBgColor(self.bfsArr);
+            }
+          }
+        });
+
+      }
+
+    //深度优先搜索遍历出节点，并存入数组中留待后续操作
+    Search.prototype.dTraversal = function() {
+      var self = this;
+      (function recurse(currentNode) {
+        for (var i = 0, len = currentNode.children.length; i < len; i++) {
+          setTimeout(recurse(currentNode.children[i]), 1000);
+        }
+        self.dfsArr.push(currentNode);
+      })(this.rootNode);
+    }
+
+    //深度优先搜索遍历出节点，并存入数组中留待后续操作
+    Search.prototype.bTraversal = function() {
+        var queue = [];
+        queue.push(this.rootNode);
+        var currentNode = queue.shift();
+        while (currentNode) {
+          for (var i = 0, len = currentNode.children.length; i < len; i++) {
+            queue.push(currentNode.children[i]);
+
+          }
+          this.bfsArr.push(currentNode);
+          currentNode = queue.shift();
+        }
+      }
+
+    //对得到的节点数组进行操作，依次改变节点的背景颜色样式
+    Search.prototype.changeBgColor = function(arr) {
+      var self = this;
+      this.searchState = "finding";
+      arr[0].style.backgroundColor = "tomato";
+      var i = 1;
+      var timer = setInterval(function() {
+        arr[i - 1].style.backgroundColor = "#fff";
+        if (i < arr.length) {
+          arr[i].style.backgroundColor = "tomato";
+        }
+        i++;
+        if (i > arr.length) {
+          clearInterval(timer);
+          self.searchState = "not-finding";
+        }
+      }, 500);
+    }
+
+    var search = new Search();
+
+  })()
+  </script>
+</body>
+
+</html>
