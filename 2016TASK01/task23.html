@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>task23</title>
+  <style>
+  * {
+    box-sizing: border-box
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  div {
+    display: flex;
+    border: 1px solid #000;
+    margin: 10px;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+  
+  #outermost {
+    height: 200px;
+    width: 60%;
+    min-width: 800px;
+    margin: 50px auto;
+  }
+  
+  #outermost div {
+    flex: 1 1 20px;
+  }
+  
+  #btnGroup,
+  form {
+    border: 0px solid #000;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 150px;
+  }
+  
+  #btnGroup button,
+  form button {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 10px;
+    background-color: tomato;
+    cursor: pointer;
+    outline: none;
+    font: 14px "Microsoft Yahei";
+    border: none;
+    border-radius: 4px;
+  }
+  
+  form {
+    font: 12px "Microsoft Yahei";
+    text-align: center;
+  }
+  
+  form input,
+  form select {
+    border: 1px solid tomato;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    outline: none;
+  }
+  
+  form select {
+    padding-left: 0;
+  }
+  
+  form #searchBtn {
+    padding-left: 0;
+    background-color: tomato;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="outermost">1
+    <div>2
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+    </div>
+    <div>6
+      <div>7</div>
+      <div>8
+        <div>9</div>
+        <div>10</div>
+      </div>
+    </div>
+    <div>11</div>
+  </div>
+  <div id="btnGroup">
+    <button id="dfs">深度优先</button>
+    <button id="bfs">广度优先</button>
+  </div>
+  <form>
+    <input type="text" id="key">
+    <select name="" id="selectBox">
+      <option value="dfs">深度优先</option>
+      <option value="bfs">广度优先</option>
+    </select>
+    <input type="button" value="搜索" id="searchBtn">
+  </form>
+  <script>
+  (function() {
+    var Search = function() {
+      this.rootNode = document.getElementById('outermost');
+      this.btnGroup = document.getElementById('btnGroup');
+      this.searchBtn = document.getElementById('searchBtn');
+      this.selectBox = document.getElementById('selectBox');
+      this.key = document.getElementById('key');
+
+
+
+      this.dfsArr = [];
+      this.bfsArr = [];
+
+      this.dTraversal();
+      this.bTraversal();
+
+      this.searchState = "not-finding";
+
+
+      var self = this;
+
+      this.btnGroup.addEventListener('click', function(e) {
+        if (self.searchState === "not-finding") {
+          if (e.target.id === "dfs") {
+            self.changeBgColor(self.dfsArr);
+          } else if (e.target.id === "bfs") {
+            self.changeBgColor(self.bfsArr);
+          }
+        }
+      });
+      //搜索和遍历的区别是在changeBgColor上，要不要重写这个函数，还是只是增加一个参数
+      this.searchBtn.addEventListener('click', function() {
+        if (self.searchState === "not-finding") {
+          if (selectBox.value === "dfs") {
+            self.changeBgColor(self.dfsArr, key.value);
+
+          } else if (selectBox.value === "bfs") {
+            self.changeBgColor(self.bfsArr, key.value);
+
+          }
+        }
+
+      });
+
+
+    }
+
+    //深度优先搜索遍历出节点，并存入数组中留待后续操作
+    Search.prototype.dTraversal = function() {
+      var self = this;
+      (function recurse(currentNode) {
+        for (var i = 0, len = currentNode.children.length; i < len; i++) {
+          setTimeout(recurse(currentNode.children[i]), 1000);
+        }
+        self.dfsArr.push(currentNode);
+      })(this.rootNode);
+    }
+
+    //深度优先搜索遍历出节点，并存入数组中留待后续操作
+    Search.prototype.bTraversal = function() {
+      var queue = [];
+      queue.push(this.rootNode);
+      var currentNode = queue.shift();
+      while (currentNode) {
+        for (var i = 0, len = currentNode.children.length; i < len; i++) {
+          queue.push(currentNode.children[i]);
+
+        }
+        this.bfsArr.push(currentNode);
+        currentNode = queue.shift();
+      }
+    }
+
+    //对得到的节点数组进行操作，依次改变节点的背景颜色样式
+    Search.prototype.changeBgColor = function(arr, keyvalue) {
+      console.log(arr);
+      for (var k = 0; k < arr.length; k++) {
+        arr[k].style.backgroundColor = "#fff";
+      }
+      var self = this;
+      this.searchState = "finding";
+      arr[0].style.backgroundColor = "tomato";
+      if (arr[0].childNodes[0].nodeValue.split(/\s/)[0] !== keyvalue) {
+        var i = 1;
+        var timer = setInterval(function() {
+          arr[i - 1].style.backgroundColor = "#fff";
+          if (i < arr.length) {
+            arr[i].style.backgroundColor = "tomato";
+          }
+          i++;
+          if (i > arr.length || arr[i - 1].childNodes[0].nodeValue.split(/\s/)[0] === keyvalue) {
+            clearInterval(timer);
+            self.searchState = "not-finding";
+          }
+        }, 500);
+      } else {
+        this.searchState = "not-finding";
+      }
+
+    }
+
+    var search = new Search();
+
+  })()
+  </script>
+</body>
+
+</html>

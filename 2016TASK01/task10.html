@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>task10</title>
+  <style>
+  body {
+    margin: 0;
+    padding: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .flex {
+    display: flex;
+    padding: 20px;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+  }
+  
+  .item {
+    width: 150px;
+    margin: 20px;
+  }
+  
+  .item1,
+  .item2,
+  .item3 {
+    border: 1px solid red;
+  }
+  
+  .item4 {
+    border: 1px solid blue;
+  }
+  
+  .item1 {
+    height: 120px;
+  }
+  
+  .item2 {
+    height: 100px;
+  }
+  
+  .item3 {
+    height: 40px;
+  }
+  
+  .item4 {
+    height: 200px;
+  }
+  
+  @media screen and (max-width:640px) {
+    .flex {
+      align-items: flex-start;
+    }
+    .item4 {
+      order: -1;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <ul class="flex">
+    <li class="item item1">1</li>
+    <li class="item item2">2</li>
+    <li class="item item3">3</li>
+    <li class="item item4">4</li>
+  </ul>
+</body>
+
+</html>
