@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>task23</title>
+  <title>task24</title>
   <style>
   * {
     box-sizing: border-box
@@ -33,15 +33,17 @@
   }
   
   #btnGroup,
-  form {
+  form,
+  #operation {
     border: 0px solid #000;
     width: 600px;
     margin: 0 auto;
-    padding: 20px 150px;
+    padding: 20px 70px;
   }
   
   #btnGroup button,
-  form button {
+  form button,
+  #operation button {
     height: 40px;
     line-height: 40px;
     text-align: center;
@@ -60,7 +62,8 @@
   }
   
   form input,
-  form select {
+  form select,
+  #operation input {
     border: 1px solid tomato;
     width: 80px;
     height: 40px;
@@ -99,17 +102,22 @@
     <div>11</div>
   </div>
   <div id="btnGroup">
-    <button id="dfs">深度优先</button>
-    <button id="bfs">广度优先</button>
+    <button id="dfs">深度优先遍历</button>
+    <button id="bfs">广度优先遍历</button>
   </div>
   <form>
-    <input type="text" id="key">
+    <input type="text" id="key" placeholder="key">
     <select name="" id="selectBox">
       <option value="dfs">深度优先</option>
       <option value="bfs">广度优先</option>
     </select>
     <input type="button" value="搜索" id="searchBtn">
   </form>
+  <div id="operation">
+    <button id="deleteBtn">删除所选节点及其子节点</button>
+    <input type="text" id="content" placeholder="content">
+    <button id="addBtn">为所选节点增加子节点</button>
+  </div>
   <script>
   (function() {
     var Search = function() {
@@ -118,6 +126,9 @@
       this.searchBtn = document.getElementById('searchBtn');
       this.selectBox = document.getElementById('selectBox');
       this.key = document.getElementById('key');
+      this.deleteBtn = document.getElementById('deleteBtn');
+      this.addBtn = document.getElementById('addBtn');
+      this.content = document.getElementById('content');
 
 
 
@@ -127,7 +138,9 @@
       this.dTraversal();
       this.bTraversal();
 
+
       this.searchState = "not-finding";
+      this.currentSelected = null;
 
 
       var self = this;
@@ -145,10 +158,8 @@
         if (self.searchState === "not-finding") {
           if (selectBox.value === "dfs") {
             self.changeBgColor(self.dfsArr, key.value);
-
           } else if (selectBox.value === "bfs") {
             self.changeBgColor(self.bfsArr, key.value);
-
           }
         }
 
@@ -185,33 +196,97 @@
 
     //对得到的节点数组进行操作，依次改变节点的背景颜色样式
     Search.prototype.changeBgColor = function(arr, keyvalue) {
-      console.log(arr);
-      for (var k = 0; k < arr.length; k++) {
-        arr[k].style.backgroundColor = "#fff";
+        for (var k = 0; k < arr.length; k++) {
+          arr[k].style.backgroundColor = "#fff";
+        }
+        var self = this;
+        this.searchState = "finding";
+        arr[0].style.backgroundColor = "tomato";
+        if (arr[0].childNodes[0].nodeValue.split(/\s/)[0] !== keyvalue) {
+          var i = 1;
+          var timer = setInterval(function() {
+            arr[i - 1].style.backgroundColor = "#fff";
+            if (i < arr.length) {
+              arr[i].style.backgroundColor = "tomato";
+            }
+            i++;
+            if (i > arr.length || arr[i - 1].childNodes[0].nodeValue.split(/\s/)[0] === keyvalue) {
+              clearInterval(timer);
+              self.searchState = "not-finding";
+              if (i > arr.length && keyvalue) {
+                alert("您搜索的节点不存在！");
+              } else {
+                self.currentSelected = arr[i - 1];
+              }
+            }
+          }, 500);
+        } else {
+          this.searchState = "not-finding";
+          this.currentSelected = arr[0];
+        }
       }
+      //对数组中的节点添加点击事件，点击某个节点，改变它的背景色
+    Search.prototype.select = function() {
+        var self = this;
+        this.rootNode.addEventListener('click', function(e) {
+          if (self.currentSelected) {
+            self.currentSelected.style.backgroundColor = "#fff";
+          }
+
+          e.target.style.backgroundColor = "tomato";
+          if (e.target.children) {
+            for (var i = 0; i < e.target.children.length; i++) {
+              e.target.children[i].style.backgroundColor = "#fff";
+            }
+          }
+          self.currentSelected = e.target;
+        });
+      }
+      //点击删除按钮，对已经选中的节点进行删除操作，如果没选中节点的情况下点击删除，弹出提示框
+    Search.prototype.delete = function() {
+        var self = this;
+        this.deleteBtn.addEventListener('click', function() {
+          if (self.currentSelected) {
+            self.currentSelected.parentNode.removeChild(self.currentSelected);
+            self.dfsArr = [];
+            self.bfsArr = [];
+            self.dTraversal();
+            self.bTraversal();
+          } else {
+            alert("请选择节点！")
+          }
+        })
+      }
+      //用户选择节点并输入内容后，为所选节点追加子节点。如果没有选择节点或者没输入内容都弹出相应提示。
+    Search.prototype.add = function() {
       var self = this;
-      this.searchState = "finding";
-      arr[0].style.backgroundColor = "tomato";
-      if (arr[0].childNodes[0].nodeValue.split(/\s/)[0] !== keyvalue) {
-        var i = 1;
-        var timer = setInterval(function() {
-          arr[i - 1].style.backgroundColor = "#fff";
-          if (i < arr.length) {
-            arr[i].style.backgroundColor = "tomato";
+      this.addBtn.addEventListener("click", function() {
+
+        if (self.currentSelected) {
+          if (self.content.value) {
+            var el = document.createElement("div");
+            el.innerHTML = self.content.value;
+            self.currentSelected.appendChild(el);
+            el.style.backgroundColor = "#fff";
+            self.dfsArr = [];
+            self.bfsArr = [];
+            self.dTraversal();
+            self.bTraversal();
+          } else {
+            alert("请输入节点内容！")
           }
-          i++;
-          if (i > arr.length || arr[i - 1].childNodes[0].nodeValue.split(/\s/)[0] === keyvalue) {
-            clearInterval(timer);
-            self.searchState = "not-finding";
-          }
-        }, 500);
-      } else {
-        this.searchState = "not-finding";
-      }
+        } else {
+          alert("请选择节点！")
+        }
+
+      })
 
     }
 
     var search = new Search();
+    search.select();
+    search.delete();
+    search.add();
 
   })()
   </script>
