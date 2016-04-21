@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>task25</title>
+  <style>
+  body {
+    font-family: "Microsoft Yahei";
+  }
+  
+  #container {
+    width: 350px;
+    border: 1px solid #aaa;
+    padding: 40px 20px;
+    margin: 30px auto;
+  }
+  
+  .searchArea input {
+    height: 25px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    padding-left: 10px;
+  }
+  
+  .searchArea button {
+    height: 25px;
+    background-color: lightblue;
+    color: #fff;
+    border-radius: 4px;
+    vertical-align: middle;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: "Microsoft Yahei";
+  }
+  
+  #rootNode,
+  #rootNode div {
+    padding-left: 20px;
+    line-height: 30px;
+  }
+  
+  #rootNode span[class^="toggle"] {
+    padding: 0px 3px;
+    border: 1px solid #aaa;
+    margin-right: 10px;
+  }
+  
+  #rootNode a {
+    display: none;
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 3px;
+    color: #fff;
+    border-radius: 4px;
+    background-color: lightblue;
+  }
+  
+  #rootNode:hover > a,
+  #rootNode div:hover > a {
+    display: inline-block;
+  }
+  
+  dt {
+    cursor: pointer;
+  }
+  
+  dt a {
+    display: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: lightblue;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+  }
+  
+  dt {
+    height: 20px;
+    line-height: 20px;
+  }
+  
+  dt:hover a {
+    display: inline-block;
+  }
+  
+  dd {
+    margin-left: 18px;
+  }
+  
+  dt span[class^="arrow"] {
+    display: inline-block;
+    border-style: solid;
+    margin-right: 5px;
+  }
+  
+  dt span.arrow-right {
+    border-width: 6px 0px 6px 12px;
+    border-color: transparent transparent transparent lightblue;
+  }
+  
+  dt span.arrow-down {
+    border-width: 12px 6px 0px 6px;
+    border-color: lightblue transparent transparent transparent;
+  }
+  
+  span.arrow-hidden {
+    visibility: hidden;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="searchArea">
+      <input type="text" id="key">
+      <button id="searchBtn">搜索</button>
+      <p id="result"></p>
+    </div>
+    <div id="tree">
+    </div>
+  </div>
+  <script>
+  (function() {
+    var Tree = function(arr) {
+      //初始化页面
+      this.arr = arr || ["食物", "水果", "蔬菜", "主食"];
+      this.tree = document.getElementById("tree");
+      this.str = "<dl><dt>" + this.arr[0] + "</dt>";
+      for (var i = 1; i < this.arr.length; i++) {
+        this.str += "<dd><dl><dt>" + this.arr[i] + "</dt></dl></dd>"
+      }
+      this.str += "</dl>";
+      this.tree.innerHTML = this.str;
+      this.dts = this.tree.getElementsByTagName("dt");
+      this.searchBtn = document.getElementById("searchBtn");
+      this.key = document.getElementById("key");
+      this.result = document.getElementById("result");
+
+      this.searchBtn.addEventListener("click", function() {
+        self.result.innerHTML = self.search(self.key.value);
+      });
+      var self = this;
+
+      for (var k = 0; k < this.dts.length; k++) {
+        var elAdd = document.createElement("a");
+        var elDelete = document.createElement("a");
+        elAdd.innerHTML = "增加";
+        elDelete.innerHTML = "删除";
+
+
+        this.dts[k].appendChild(elAdd);
+        if (k > 0) { //确保一级目录不被删除
+          this.dts[k].appendChild(elDelete);
+        }
+
+        var span = document.createElement("span");
+        span.className = "arrow-down";
+        this.dts[k].insertBefore(span, this.dts[k].childNodes[0]);
+
+
+        if (this.dts[k].parentNode.children.length === 1) {
+          this.dts[k].childNodes[0].className = "arrow-down arrow-hidden";
+          this.dts[k].setAttribute("data-leaf", "noLeaf");
+        } else {
+          this.dts[k].setAttribute("data-leaf", "hasLeaf");
+        }
+      }
+      //为tree添加事件，用到事件代理
+      this.tree.addEventListener("click", function(e) {
+        switch (e.target.innerHTML) {
+          case "增加":
+            var text = prompt("请输入要增加的节点内容");
+            if (text) {
+              self.add(text, e.target);
+            } else if (text === "") {
+              alert("节点内容不能为空");
+            } else {
+              return false;
+            }
+            break;
+          case "删除":
+            self.delete(e.target);
+            break;
+          case "":
+            self.toggleFold(e.target, e.target.className);
+            break;
+          default:
+            break;
+        }
+      })
+    }
+    //增加子节点
+    Tree.prototype.add = function(text, node) {
+      var dl = node.parentNode.parentNode;
+      var dd = document.createElement("dd");
+      dd.innerHTML = "<dl><dt data-leaf = 'noLeaf'>" + "<span class='arrow-down arrow-hidden'></span>" + text + "<a href='javascript:;'>增加</a><a href='javascript:;''>删除</a>" + "</dt></dl>";
+      dl.appendChild(dd);
+
+      var dt = node.parentNode;
+      if (dt.getAttribute("data-leaf") === "noLeaf") {
+        dt.childNodes[0].className = "arrow-down";
+        dt.setAttribute("data-leaf", "hasLeaf");
+      }
+    }
+    //删除子节点
+    Tree.prototype.delete = function(node) {
+      var dd = node.parentNode.parentNode.parentNode;
+      dd.parentNode.removeChild(dd);
+    }
+    //收起与展开
+    Tree.prototype.toggleFold = function(arrow, className) {
+      var tds = arrow.parentNode.parentNode.children;
+      if (className === "arrow-down") {
+        arrow.className = "arrow-right";
+        for (var i = 1; i < tds.length; i++) {
+          tds[i].style.display = "none";
+        }
+      } else if (className === "arrow-right") {
+        arrow.className = "arrow-down";
+        for (var i = 1; i < tds.length; i++) {
+          tds[i].style.display = "block";
+        }
+      }
+    }
+    //搜索节点
+    Tree.prototype.search = function(keyvalue) {
+      var dts = this.tree.getElementsByTagName("dt");
+      var num = 0;
+      for (var i = 0; i < dts.length; i++) {
+        if (dts[i].innerText.substr(0, keyvalue.length) === keyvalue) {
+          dts[i].style.color = "#f25dbc";
+          //如果是被折叠在父元素中，就将父元素打开
+          for (var k = i - 1; k > 0; k--) {
+            if (dts[k].getAttribute("data-leaf") === "hasLeaf" && dts[k].children[0].className === "arrow-right") {
+              //判断两个节点是不是兄弟节点
+              if (dts[k].parentNode.parentNode.parentNode !== dts[i].parentNode.parentNode.parentNode)
+                dts[k].children[0].click();
+            }
+          }
+          num++;
+        } else {
+          dts[i].style.color = "#000";
+        }
+      }
+      return num === 0 ? '没有找到你想要的节点' : '找到' + num + '个节点内容为"' + keyvalue + '"的节点。';
+    }
+    var tree = new Tree();
+  })()
+  </script>
+</body>
+
+</html>
