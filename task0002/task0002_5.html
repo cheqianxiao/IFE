@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>拖拽交互</title>
+  <style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  #container {
+    width: 650px;
+    height: 500px;
+    border: 1px solid #000;
+    margin: 30px auto;
+    position: relative;
+  }
+  
+  #container .column {
+    width: 200px;
+    height: 400px;
+    border: 1px solid #000;
+    position: absolute;
+    top: 30px;
+  }
+  
+  #container .column-left {
+    left: 50px;
+  }
+  
+  #container .column-right {
+    right: 50px;
+  }
+  
+  #container .bar {
+    width: 200px;
+    height: 45px;
+    border-bottom: 1px solid #000;
+    background-color: pink;
+    cursor: move;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    /*这里有个坑，column的z-index不能设置，一旦设置，就会变成老样子*/
+  }
+  #container .active {
+  	opacity: 0.7;
+  	filter: alpha(opacity = 70);
+  	border: 1px solid #aaa;
+  }
+  #container .steal {
+  	opacity: 1;
+  	filter: alpha(opacity = 100);
+  }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="column column-left">
+    </div>
+    <div class="column column-right">
+    </div>
+  </div>
+  <script src="drag.js"></script>
+</body>
+
+</html>
