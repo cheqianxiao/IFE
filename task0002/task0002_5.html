@@ -43,16 +43,18 @@
     position: absolute;
     left: 0;
     z-index: 2;
-    /*这里有个坑，column的z-index不能设置，一旦设置，就会变成老样子*/
+    /*这里有个坑，column的z-index不能设置*/
   }
+  
   #container .active {
-  	opacity: 0.7;
-  	filter: alpha(opacity = 70);
-  	border: 1px solid #aaa;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    border: 1px solid #aaa;
   }
+  
   #container .steal {
-  	opacity: 1;
-  	filter: alpha(opacity = 100);
+    opacity: 1;
+    filter: alpha(opacity=100);
   }
   </style>
 </head>
@@ -64,7 +66,95 @@
     <div class="column column-right">
     </div>
   </div>
-  <script src="drag.js"></script>
+  <script>
+  var container = document.getElementById('container');
+  var columnLeft = document.getElementsByClassName('column')[0];
+  var columnRight = document.getElementsByClassName('column')[1];
+
+
+  initColumn(4, 3)
+
+  //初始化column
+  function initColumn(lCount, rCount) {
+    //每次初始化的时候要将之前的清空
+    columnLeft.innerHTML = "";
+    columnRight.innerHTML = "";
+    for (var i = 0; i < lCount; i++) {
+      var bar = document.createElement('div');
+      bar.className = 'bar';
+      columnLeft.appendChild(bar);
+      bar.style.top = i * 46 + 'px';
+      drag(bar); //每一个bar都可以被拖拽
+    }
+    for (var i = 0; i < rCount; i++) {
+      var bar = document.createElement('div');
+      bar.className = 'bar';
+      columnRight.appendChild(bar);
+      bar.style.top = i * 46 + 'px';
+      drag(bar); //每一个bar都可以被拖拽
+    }
+  }
+
+  function drag(obj) {
+    obj.onmousedown = function(e) {
+      var e = e || event;
+      var column = obj.parentNode;
+      var self = this; //此处的this指的是obj,保存一下，后面要用到
+      var diffX = e.clientX - this.offsetLeft;
+      var diffY = e.clientY - this.offsetTop;
+      this.className = "bar active"; //bar被拖动时的样式
+
+      document.onmousemove = function(e) {
+        var e = e || event;
+        var left = e.clientX - diffX;
+        var top = e.clientY - diffY;
+        //设置边界条件，不能拖出大方框的外面
+        if (left < -column.offsetLeft) {
+          left = -column.offsetLeft;
+        } else if (left > container.offsetWidth - self.offsetWidth - column.offsetLeft) {
+          left = container.offsetWidth - self.offsetWidth - column.offsetLeft;
+        }
+        if (top < -column.offsetTop) {
+          top = -column.offsetTop;
+        } else if (top > container.offsetHeight - self.offsetHeight - column.offsetTop) {
+          top = container.offsetHeight - self.offsetHeight - column.offsetTop;
+        }
+        self.style.left = left + 'px';
+        self.style.top = top + 'px';
+      }
+      document.onmouseup = function() {
+        self.className = "bar steal"; //bar静止时的样式
+        bemychild(self, column)
+        this.onmousemove = null;
+        this.onmouseup = null;
+      }
+    }
+  }
+  //划定结界
+  function bemychild(bar, column) {
+    var lCount = 0,
+      rCount = 0;
+    if (column.className === "column column-left") { //从左边拖出去的bar
+      lCount = column.children.length;
+      rCount = column.parentNode.children[1].children.length;
+      if (bar.offsetLeft > container.offsetWidth / 2 - columnLeft.offsetLeft) { //左边失去一个孩子  
+        initColumn(lCount - 1, rCount + 1);
+        return;
+      } else { //没有拖过去
+        initColumn(lCount, rCount);
+      }
+    }
+    if (column.className === "column column-right") { //从右边拖出去的bar
+      rCount = column.children.length;
+      lCount = column.parentNode.children[0].children.length;
+      if (bar.offsetLeft < -(bar.offsetWidth + columnRight.offsetLeft - container.offsetWidth / 2)) { //右边失去一个孩子
+        initColumn(lCount + 1, rCount - 1);
+      } else { //没有拖过去
+        initColumn(lCount, rCount);
+      }
+    }
+  }
+  </script>
 </body>
 
 </html>
