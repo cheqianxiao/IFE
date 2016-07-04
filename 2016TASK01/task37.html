@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>task37</title>
+  <style>
+  body {
+    font-family: "Microsoft Yahei";
+    color: #0d0d0d;
+  }
+  
+  a {
+    color: #0d0d0d;
+  }
+  
+  a:hover {
+    color: #555;
+  }
+  
+  #mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #000;
+    opacity: .2;
+    filter: alpha(opacity=20);
+    display: none;
+  }
+  
+  #login_box {
+    position: fixed;
+    background: white;
+    border: 1px solid #c8c8c8;
+    display: none;
+    width: 302px;
+  }
+  
+  a.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    background: url(images/close.png) no-repeat 0 0;
+  }
+  
+  form {
+    padding: 20px;
+  }
+  
+  form .input_group {
+    margin: 0 0 20px;
+  }
+  
+  form label {
+    display: block;
+    margin: 0 0 7px;
+    font-size: 12px;
+  }
+  
+  form input {
+    font-family: "Microsoft Yahei";
+    font-size: 12px;
+    width: 260px;
+  }
+  
+  form input[type="text"],
+  form input[type="password"] {
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid #c8c8c8;
+    padding: 6px 10px;
+    line-height: 1.4;
+  }
+  
+  #login_box h4 {
+    text-align: center;
+    margin: 0;
+    padding: 17px 24px 18px 24px;
+    border-bottom: 1px solid #c8c8c8;
+    font-size: 18px;
+    font-weight: normal;
+    background-color: #f8f8f8;
+    cursor: move;
+  }
+  
+  .login_btn {
+    width: 100%;
+    padding: 10px 11px 11px;
+    font-size: 13px;
+    color: #fff;
+    background-color: #0d0d0d;
+    border: none;
+  }
+  
+  .login_btn:hover {
+    background: #555;
+    cursor: pointer;
+  }
+  
+  .forgot_pw {
+    font-size: 11px;
+  }
+  </style>
+</head>
+
+<body>
+  <a href="javascript:;" class="login">登录</a>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <p>haha</p>
+  <div id="mask"></div>
+  <div id="login_box">
+    <a href="#" class="close"></a>
+    <h4>Login In</h4>
+    <form action="">
+      <div class="input_group">
+        <label for="">用户名：</label>
+        <input type="text">
+      </div>
+      <div class="input_group">
+        <label for="">密码：</label>
+        <input type="password">
+      </div>
+      <div class="input_group">
+        <input type="submit" value="登录" class="login_btn">
+        <p><a href="javascript:;" class="forgot_pw">忘记密码？</a></p>
+      </div>
+    </form>
+  </div>
+  <script>
+  (function() {
+
+    var login_btn = document.getElementsByClassName('login')[0];
+    var mask = document.getElementById('mask');
+    var login_box = document.getElementById('login_box');
+    var close = document.getElementsByClassName('close')[0];
+
+    //点击登录按钮弹出锁屏和登录框
+    login_btn.onclick = function() {
+      mask.style.width = getInner().width + 'px';
+      mask.style.height = getInner().height + 'px';
+      mask.style.display = "block";
+
+      login_box.style.display = "block";
+      center(login_box); //将display设为block之后才可以得到元素的offsetWidth
+    }
+
+    //点击锁屏或关闭按钮都让锁屏和登录框消失
+    document.onclick = function(e) {
+      if (e.target == mask || e.target == close) {
+        mask.style.display = "none";
+        login_box.style.display = "none";
+      }
+    }
+
+    //锁屏的时候禁止滚动
+    window.onscroll = function() {
+      if (mask.style.display == 'block') {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }
+    }
+
+    //改变窗口大小时登录框重新居中
+    window.onresize = function() {
+      if (login_box.style.display == "block") {
+        center(login_box);
+      }
+    }
+
+    drag(login_box);
+
+    //让元素居中于窗口中
+    function center(el) {
+      var left = (getInner().width - el.offsetWidth) / 2;
+      var top = (getInner().height - el.offsetHeight) / 2;
+      el.style.left = left + 'px';
+      el.style.top = top + 'px';
+    }
+
+    //获得可视区域大小
+    function getInner() {
+      return {
+        height: document.documentElement.clientHeight || window.innerHeight,
+        width: document.documentElement.clientWidth || window.innerWidth
+      }
+
+    }
+
+    //拖拽
+    function drag(el) {
+      el.addEventListener('mousedown', function(e) {
+        var diffX = e.clientX - el.offsetLeft;
+        var diffY = e.clientY - el.offsetTop;
+        if (e.target.tagName === 'H4') {
+          document.addEventListener('mousemove', move);
+          document.addEventListener('mouseup', up);
+        }
+
+        function move(e) {
+          //根据鼠标的位置  获取el应该在的位置  diffX diffY  是鼠标相对el的坐标
+          var left = e.clientX - diffX;
+          var top = e.clientY - diffY;
+          //如果算得所在的位置超出了可视区 则进行相应调整
+          if (left < 0) {
+            left = 0;
+          } else if (left > getInner().width - el.offsetWidth) {
+            left = getInner().width - el.offsetWidth;
+          }
+          if (top < 0) {
+            top = 0;
+          } else if (top > getInner().height - el.offsetHeight) {
+            top = getInner().height - el.offsetHeight;
+          }
+
+          el.style.left = left + 'px';
+          el.style.top = top + 'px';
+        }
+
+        function up() {
+          document.removeEventListener('mousemove', move);
+          document.removeEventListener('mouseup', up);
+        }
+      })
+    }
+  })()
+  </script>
+</body>
+
+</html>
